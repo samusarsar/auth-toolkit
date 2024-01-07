@@ -8,7 +8,7 @@ interface LoginButtonProps {
 	asChild?: boolean;
 }
 
-const LoginButton = ({
+export const LoginButton = ({
 	children,
 	mode = 'redirect',
 	asChild,
@@ -16,7 +16,7 @@ const LoginButton = ({
 	const router = useRouter();
 
 	const onClick = () => {
-		router.push('/auth/router');
+		router.push('/auth/login');
 	};
 
 	if (mode === 'modal') {
@@ -32,5 +32,3 @@ const LoginButton = ({
 		</span>
 	);
 };
-
-export default LoginButton;
