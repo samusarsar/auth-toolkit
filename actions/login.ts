@@ -1,6 +1,6 @@
 'use server';
 
-import { z } from 'zod';
+import * as z from 'zod';
 
 import { LoginSchema } from '@/schemas';
 
@@ -16,6 +16,6 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 
 	return {
 		error: false,
-		message: 'Credentials sent!',
+		message: 'User logged in!',
 	};
 };
