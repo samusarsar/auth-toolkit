@@ -2,10 +2,14 @@
 
 import * as z from 'zod';
 
+import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { LoginSchema } from '@/schemas';
+import { login } from '@/actions/login';
+import { TAuthResponse } from '@/common/types';
+
 import {
 	Form,
 	FormControl,
@@ -20,6 +24,11 @@ import { Button } from '@/components/ui/button';
 import { FormAlert } from '@/components/form-alert';
 
 export const LoginForm = () => {
+	const [loginResponse, setLoginResponse] = useState<TAuthResponse | null>(
+		null
+	);
+	const [isPending, startTransition] = useTransition();
+
 	const form = useForm<z.infer<typeof LoginSchema>>({
 		resolver: zodResolver(LoginSchema),
 		defaultValues: {
@@ -29,13 +38,19 @@ export const LoginForm = () => {
 	});
 
 	const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-		console.log(values);
+		setLoginResponse(null);
+
+		startTransition(() => {
+			login(values).then((data) => {
+				setLoginResponse(data);
+			});
+		});
 	};
 
 	return (
 		<CardWrapper
 			headerLabel='Welcome back'
-			backButtonLabel="Don'ot have an account"
+			backButtonLabel="Don't have an account?"
 			backButtonHref='/auth/register'
 			showSocial
 		>
@@ -54,6 +69,7 @@ export const LoginForm = () => {
 									<FormControl>
 										<Input
 											{...field}
+											disabled={isPending}
 											placeholder='john.doe@exmaple.com'
 											type='email'
 										/>
@@ -71,6 +87,7 @@ export const LoginForm = () => {
 									<FormControl>
 										<Input
 											{...field}
+											disabled={isPending}
 											placeholder='******'
 											type='password'
 										/>
@@ -80,9 +97,13 @@ export const LoginForm = () => {
 							)}
 						/>
 					</div>
-					<FormAlert message='' />
+					<FormAlert
+						isError={loginResponse?.error}
+						message={loginResponse?.message}
+					/>
 					<Button
 						type='submit'
+						disabled={isPending}
 						className='w-full'
 					>
 						Log in
