@@ -24,8 +24,7 @@ import { Button } from '@/components/ui/button';
 import { FormAlert } from '@/components/form-alert';
 
 export const RegisterForm = () => {
-	const [registerResponse, setRegisterResponse] =
-		useState<TAuthResponse | null>(null);
+	const [registerResponse, setRegisterResponse] = useState<TAuthResponse>({});
 	const [isPending, startTransition] = useTransition();
 
 	const form = useForm<z.infer<typeof RegisterSchema>>({
@@ -38,7 +37,7 @@ export const RegisterForm = () => {
 	});
 
 	const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-		setRegisterResponse(null);
+		setRegisterResponse({});
 
 		startTransition(() => {
 			register(values).then((data) => {
