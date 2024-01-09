@@ -3,6 +3,7 @@
 import * as z from 'zod';
 
 import { useState, useTransition } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -24,9 +25,18 @@ import { Button } from '@/components/ui/button';
 import { FormAlert } from '@/components/form-alert';
 
 export const LoginForm = () => {
-	const [loginResponse, setLoginResponse] = useState<TAuthResponse | null>(
-		null
-	);
+	const searchParams = useSearchParams();
+	const urlError =
+		searchParams.get('error') === 'OAuthAccountNotLinked'
+			? 'Email already in use with a different provider!'
+			: '';
+
+	const [loginResponse, setLoginResponse] = useState<
+		TAuthResponse | undefined
+	>({
+		error: false,
+		message: '',
+	});
 	const [isPending, startTransition] = useTransition();
 
 	const form = useForm<z.infer<typeof LoginSchema>>({
@@ -38,7 +48,10 @@ export const LoginForm = () => {
 	});
 
 	const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-		setLoginResponse(null);
+		setLoginResponse({
+			error: false,
+			message: '',
+		});
 
 		startTransition(() => {
 			login(values).then((data) => {
@@ -98,8 +111,8 @@ export const LoginForm = () => {
 						/>
 					</div>
 					<FormAlert
-						isError={loginResponse?.error}
-						message={loginResponse?.message}
+						isError={loginResponse?.error || !!urlError}
+						message={loginResponse?.message || urlError}
 					/>
 					<Button
 						type='submit'
