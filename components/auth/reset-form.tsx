@@ -24,10 +24,7 @@ import { Button } from '@/components/ui/button';
 import { FormAlert } from '@/components/form-alert';
 
 export const ResetForm = () => {
-	const [loginResponse, setLoginResponse] = useState<TAlert | undefined>({
-		error: false,
-		message: '',
-	});
+	const [loginResponse, setLoginResponse] = useState<TAlert | undefined>({});
 	const [isPending, startTransition] = useTransition();
 
 	const form = useForm<z.infer<typeof ResetSchema>>({
@@ -38,10 +35,7 @@ export const ResetForm = () => {
 	});
 
 	const onSubmit = (values: z.infer<typeof ResetSchema>) => {
-		setLoginResponse({
-			error: false,
-			message: '',
-		});
+		setLoginResponse({});
 
 		startTransition(() => {
 			reset(values).then((data) => {

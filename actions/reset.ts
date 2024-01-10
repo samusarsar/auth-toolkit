@@ -28,5 +28,5 @@ export const reset = async (values: z.infer<typeof ResetSchema>) => {
 		passwordResetToken.token
 	);
 
-	return { error: false, message: 'Reset email sent!' };
+	return { message: 'Reset email sent!' };
 };

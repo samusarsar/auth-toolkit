@@ -44,7 +44,7 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
 			verificationToken.token
 		);
 
-		return { error: false, message: 'Verification email sent!' };
+		return { message: 'Verification email sent!' };
 	}
 
 	if (values.password && values.newPassword && dbUser.password) {
@@ -69,5 +69,5 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
 		},
 	});
 
-	return { error: false, message: 'Settings updated!' };
+	return { message: 'Settings updated!' };
 };

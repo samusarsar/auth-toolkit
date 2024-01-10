@@ -12,7 +12,7 @@ import { FormAlert } from '@/components/form-alert';
 export const NewVerificationForm = () => {
 	const [verificationResponse, setVerificationResponse] = useState<
 		TAlert | undefined
-	>({ error: false, message: '' });
+	>({});
 
 	const searchParams = useSearchParams();
 

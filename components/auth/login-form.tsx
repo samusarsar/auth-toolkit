@@ -61,7 +61,6 @@ export const LoginForm = () => {
 				})
 				.catch(() =>
 					setLoginResponse({
-						error: false,
 						message: 'Something went wrong',
 					})
 				);

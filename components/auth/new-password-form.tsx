@@ -28,10 +28,7 @@ export const NewPasswordForm = () => {
 	const searchParams = useSearchParams();
 	const token = searchParams.get('token');
 
-	const [loginResponse, setLoginResponse] = useState<TAlert | undefined>({
-		error: false,
-		message: '',
-	});
+	const [loginResponse, setLoginResponse] = useState<TAlert | undefined>({});
 	const [isPending, startTransition] = useTransition();
 
 	const form = useForm<z.infer<typeof NewPasswordSchema>>({
@@ -42,10 +39,7 @@ export const NewPasswordForm = () => {
 	});
 
 	const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
-		setLoginResponse({
-			error: false,
-			message: '',
-		});
+		setLoginResponse({});
 
 		startTransition(() => {
 			newPassword(values, token).then((data) => {

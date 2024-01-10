@@ -49,5 +49,5 @@ export const newPassword = async (
 		data: { password: hashedPassword },
 	});
 
-	return { error: false, message: 'Password updated!' };
+	return { message: 'Password updated!' };
 };
