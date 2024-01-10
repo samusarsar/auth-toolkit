@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 
 import './globals.css';
 import { auth } from '@/auth';
+import { Toaster } from 'sonner';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,7 +19,10 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
 	return (
 		<html lang='en'>
 			<body className={inter.className}>
-				<SessionProvider session={session}>{children}</SessionProvider>
+				<SessionProvider session={session}>
+					<Toaster />
+					{children}
+				</SessionProvider>
 			</body>
 		</html>
 	);
