@@ -12,6 +12,7 @@ import { sendVerificationEmail } from '@/lib/mail';
 
 export const settings = async (values: z.infer<typeof SettingsSchema>) => {
 	const user = await currentUser();
+	let emailVerificationSent = false;
 
 	if (!user) {
 		return { error: true, message: 'Unauthorized' };
@@ -44,7 +45,7 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
 			verificationToken.token
 		);
 
-		return { message: 'Verification email sent!' };
+		emailVerificationSent = true;
 	}
 
 	if (values.password && values.newPassword && dbUser.password) {
@@ -69,5 +70,7 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
 		},
 	});
 
-	return { message: 'Settings updated!' };
+	return emailVerificationSent
+		? { message: 'Settings updated and verification email sent!' }
+		: { message: 'Settings updated!' };
 };
