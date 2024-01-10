@@ -233,7 +233,12 @@ export const SettingsForm = () => {
 							isError={updateResponse?.error}
 							message={updateResponse?.message}
 						/>
-						<Button type='submit'>Save</Button>
+						<Button
+							type='submit'
+							disabled={isPending}
+						>
+							Save
+						</Button>
 					</form>
 				</Form>
 			</CardContent>
