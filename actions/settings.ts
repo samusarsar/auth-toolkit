@@ -63,11 +63,18 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
 		values.newPassword = undefined;
 	}
 
+	const updates = emailVerificationSent
+		? {
+				...values,
+				emailVerified: null,
+		  }
+		: {
+				...values,
+		  };
+
 	await db.user.update({
 		where: { id: dbUser.id },
-		data: {
-			...values,
-		},
+		data: updates,
 	});
 
 	return emailVerificationSent
