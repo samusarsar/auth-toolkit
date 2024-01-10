@@ -27,6 +27,7 @@ import { FormAlert } from '@/components/form-alert';
 
 export const LoginForm = () => {
 	const searchParams = useSearchParams();
+	const callbackUrl = searchParams.get('callbackUrl');
 	const urlError =
 		searchParams.get('error') === 'OAuthAccountNotLinked'
 			? 'Email already in use with a different provider!'
@@ -48,7 +49,7 @@ export const LoginForm = () => {
 		setLoginResponse({});
 
 		startTransition(() => {
-			login(values)
+			login(values, callbackUrl)
 				.then((data) => {
 					if (data?.message) {
 						form.reset();
