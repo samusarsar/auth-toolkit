@@ -8,7 +8,7 @@ interface UserInfoProps {
 	label: string;
 }
 
-export const UserInfo = async ({ user, label }: UserInfoProps) => {
+export const UserInfo = ({ user, label }: UserInfoProps) => {
 	return (
 		<Card className='w-[600px] shadow-md'>
 			<CardHeader>
