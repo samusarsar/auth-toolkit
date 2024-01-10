@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { NewPasswordSchema } from '@/schemas';
 import { newPassword } from '@/actions/new-password';
-import { TAuthResponse } from '@/common/types';
+import { TAlert } from '@/common/types';
 
 import {
 	Form,
@@ -28,9 +28,7 @@ export const NewPasswordForm = () => {
 	const searchParams = useSearchParams();
 	const token = searchParams.get('token');
 
-	const [loginResponse, setLoginResponse] = useState<
-		TAuthResponse | undefined
-	>({
+	const [loginResponse, setLoginResponse] = useState<TAlert | undefined>({
 		error: false,
 		message: '',
 	});

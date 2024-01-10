@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { ResetSchema } from '@/schemas';
 import { reset } from '@/actions/reset';
-import { TAuthResponse } from '@/common/types';
+import { TAlert } from '@/common/types';
 
 import {
 	Form,
@@ -24,9 +24,7 @@ import { Button } from '@/components/ui/button';
 import { FormAlert } from '@/components/form-alert';
 
 export const ResetForm = () => {
-	const [loginResponse, setLoginResponse] = useState<
-		TAuthResponse | undefined
-	>({
+	const [loginResponse, setLoginResponse] = useState<TAlert | undefined>({
 		error: false,
 		message: '',
 	});

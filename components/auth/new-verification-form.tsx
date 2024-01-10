@@ -5,13 +5,13 @@ import { BeatLoader } from 'react-spinners';
 import { useSearchParams } from 'next/navigation';
 
 import { newVerification } from '@/actions/new-verification';
-import { TAuthResponse } from '@/common/types';
+import { TAlert } from '@/common/types';
 import { CardWrapper } from '@/components/auth/card-wrapper';
 import { FormAlert } from '@/components/form-alert';
 
 export const NewVerificationForm = () => {
 	const [verificationResponse, setVerificationResponse] = useState<
-		TAuthResponse | undefined
+		TAlert | undefined
 	>({ error: false, message: '' });
 
 	const searchParams = useSearchParams();

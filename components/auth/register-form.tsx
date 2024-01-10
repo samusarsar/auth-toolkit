@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { RegisterSchema } from '@/schemas';
 import { register } from '@/actions/register';
-import { TAuthResponse } from '@/common/types';
+import { TAlert } from '@/common/types';
 
 import {
 	Form,
@@ -24,7 +24,7 @@ import { Button } from '@/components/ui/button';
 import { FormAlert } from '@/components/form-alert';
 
 export const RegisterForm = () => {
-	const [registerResponse, setRegisterResponse] = useState<TAuthResponse>({});
+	const [registerResponse, setRegisterResponse] = useState<TAlert>({});
 	const [isPending, startTransition] = useTransition();
 
 	const form = useForm<z.infer<typeof RegisterSchema>>({

@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 import { LoginSchema } from '@/schemas';
 import { login } from '@/actions/login';
-import { TAuthResponse } from '@/common/types';
+import { TAlert } from '@/common/types';
 
 import {
 	Form,
@@ -33,9 +33,7 @@ export const LoginForm = () => {
 			: '';
 
 	const [showTwoFactor, setShowTwoFactor] = useState(false);
-	const [loginResponse, setLoginResponse] = useState<
-		TAuthResponse | undefined
-	>({});
+	const [loginResponse, setLoginResponse] = useState<TAlert | undefined>({});
 	const [isPending, startTransition] = useTransition();
 
 	const form = useForm<z.infer<typeof LoginSchema>>({
