@@ -1,6 +1,9 @@
+'use client';
+
 import { Poppins } from 'next/font/google';
 
 import { cn } from '@/lib/utils';
+import { useCurrentUser } from '@/hooks/use-current-user';
 import { Button } from '@/components/ui/button';
 import { LoginButton } from '@/components/auth/login-button';
 
@@ -9,7 +12,9 @@ const font = Poppins({
 	weight: ['600'],
 });
 
-const Home = async () => {
+const Home = () => {
+	const user = useCurrentUser();
+
 	return (
 		<main className='flex h-full flex-col items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800'>
 			<div className='space-y-6 text-center'>
@@ -26,8 +31,8 @@ const Home = async () => {
 				</p>
 				<div>
 					<LoginButton
-						mode='modal'
-						asChild
+						mode={user ? 'redirect' : 'modal'}
+						asChild={!user}
 					>
 						<Button
 							variant='secondary'
